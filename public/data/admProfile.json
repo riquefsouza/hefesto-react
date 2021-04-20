@@ -1,0 +1,87 @@
+[
+    {
+        "id": 1,
+        "administrator": true,
+        "description": "ADMIN",
+        "general": false,
+        "admPages": [
+            {
+                "id": 1,
+                "description": "Category of Configuration Parameters",
+                "url": "admin/admParameterCategory/listAdmParameterCategory.xhtml"
+            },
+            {
+                "id": 2,
+                "description": "Edit Category of Configuration Parameters",
+                "url": "admin/admParameterCategory/editAdmParameterCategory.xhtml"
+            },
+            {
+                "id": 3,
+                "description": "Configuration Parameters",
+                "url": "admin/admParameter/listAdmParameter.xhtml"
+            },
+            {
+                "id": 4,
+                "description": "Edit Configuration Parameters",
+                "url": "admin/admParameter/editAdmParameter.xhtml"
+            },
+            {
+                "id": 5,
+                "description": "Administer Profile",
+                "url": "admin/admProfile/listAdmProfile.xhtml"
+            },
+            {
+                "id": 6,
+                "description": "Edit Administer Profile",
+                "url": "admin/admProfile/editAdmProfile.xhtml"
+            },
+            {
+                "id": 7,
+                "description": "Administer Page",
+                "url": "admin/admPage/listAdmPage.xhtml"
+            },
+            {
+                "id": 8,
+                "description": "Edit Administer Page",
+                "url": "admin/admPage/editAdmPage.xhtml"
+            },
+            {
+                "id": 9,
+                "description": "Administer Menu",
+                "url": "admin/admMenu/listAdmMenu.xhtml"
+            },
+            {
+                "id": 10,
+                "description": "Edit Administer Menu",
+                "url": "admin/admMenu/editAdmMenu.xhtml"
+            },
+            {
+                "id": 11,
+                "description": "Administer User",
+                "url": "admin/admUser/listAdmUser.xhtml"
+            },
+            {
+                "id": 12,
+                "description": "Edit Administer User",
+                "url": "admin/admUser/editAdmUser.xhtml"
+            }
+        ],
+        "admUsers": [
+            {
+                "id": 1,
+                "email": "nao_responda@gmail.com",
+                "login": "admin",
+                "name": "Henrique",
+                "password": "$2a$10$nhU38YCtaWpLzTIeG/uAIeGnu7GItrvGsQAQrgsjM9hN19cGp25N6"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "administrator": false,
+        "description": "USER",
+        "general": true,
+        "admPages": [],
+        "admUsers": []
+    }
+]

@@ -1,0 +1,1 @@
+export type MyEventType = { originalEvent: Event, value: any, target: { name: string, id: string, value: any } };

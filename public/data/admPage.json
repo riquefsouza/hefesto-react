@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "description": "Category of Configuration Parameters",
+        "url": "admin/admParameterCategory/listAdmParameterCategory.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 2,
+        "description": "Edit Category of Configuration Parameters",
+        "url": "admin/admParameterCategory/editAdmParameterCategory.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 3,
+        "description": "Configuration Parameters",
+        "url": "admin/admParameter/listAdmParameter.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 4,
+        "description": "Edit Configuration Parameters",
+        "url": "admin/admParameter/editAdmParameter.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 5,
+        "description": "Administer Profile",
+        "url": "admin/admProfile/listAdmProfile.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 6,
+        "description": "Edit Administer Profile",
+        "url": "admin/admProfile/editAdmProfile.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 7,
+        "description": "Administer Page",
+        "url": "admin/admPage/listAdmPage.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 8,
+        "description": "Edit Administer Page",
+        "url": "admin/admPage/editAdmPage.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 9,
+        "description": "Administer Menu",
+        "url": "admin/admMenu/listAdmMenu.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 10,
+        "description": "Edit Administer Menu",
+        "url": "admin/admMenu/editAdmMenu.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 11,
+        "description": "Administer User",
+        "url": "admin/admUser/listAdmUser.xhtml",
+        "admIdProfiles": [1]
+    },
+    {
+        "id": 12,
+        "description": "Edit Administer User",
+        "url": "admin/admUser/editAdmUser.xhtml",
+        "admIdProfiles": [1]
+    }
+]

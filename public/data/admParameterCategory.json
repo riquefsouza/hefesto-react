@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "description": "Court Parameters",
+        "order": 1
+    },
+    {
+        "id": 2,
+        "description": "Login Parameters",
+        "order": 2
+    },
+    {
+        "id": 3,
+        "description": "E-mail Parameters",
+        "order": 3
+    },
+    {
+        "id": 4,
+        "description": "Network connection Parameters",
+        "order": 4
+    },
+    {
+        "id": 5,
+        "description": "System Parameters",
+        "order": null
+    }
+]

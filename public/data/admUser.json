@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "email": "nao_responda@gmail.com",
+        "login": "admin",
+        "name": "Henrique",
+        "password": "$2a$10$nhU38YCtaWpLzTIeG/uAIeGnu7GItrvGsQAQrgsjM9hN19cGp25N6",
+        "admIdProfiles": [1],
+        "active": true
+    }
+]

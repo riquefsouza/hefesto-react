@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "description": "Administrative",
+        "order": 1,
+        "idPage": null,
+        "idMenuParent": null
+    },
+    {
+        "id": 2,
+        "description": "Category of Configuration Parameters",
+        "order": 2,
+        "idPage": 1,
+        "idMenuParent": 1
+    },
+    {
+        "id": 3,
+        "description": "Configuration Parameters",
+        "order": 3,
+        "idPage": 3,
+        "idMenuParent": 1
+    },
+    {
+        "id": 4,
+        "description": "Administer Profile",
+        "order": 4,
+        "idPage": 5,
+        "idMenuParent": 1
+    },
+    {
+        "id": 5,
+        "description": "Administer Page",
+        "order": 6,
+        "idPage": 7,
+        "idMenuParent": 1
+    },
+    {
+        "id": 6,
+        "description": "Administer Menu",
+        "order": 7,
+        "idPage": 9,
+        "idMenuParent": 1
+    },
+    {
+        "id": 7,
+        "description": "Administer User",
+        "order": 6,
+        "idPage": 11,
+        "idMenuParent": 1
+    }
+]

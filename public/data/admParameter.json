@@ -1,0 +1,167 @@
+[
+    {
+        "id": 1,
+        "code": "NOME_TRIBUNAL",
+        "description": "Nome do tribunal onde o sistema está instalado.",
+        "value": "Tribunal Regional do Trabalho da 1a. Região",
+        "admParameterCategory": {
+            "id": 1,
+            "description": "Court Parameters",
+            "order": 1
+        }
+    },
+    {
+        "id": 2,
+        "code": "SIGLA_TRIBUNAL",
+        "description": "Sigla do tribunal onde o sistema está instalado.",
+        "value": "TRT1",
+        "admParameterCategory": {
+            "id": 1,
+            "description": "Court Parameters",
+            "order": 1
+        }
+    },
+    {
+        "id": 3,
+        "code": "CODIGO_UNIDADE_GESTORA",
+        "description": "Código númérico de 6 dígitos que identifica o órgão no SIAFI.",
+        "value": "080009",
+        "admParameterCategory": {
+            "id": 1,
+            "description": "Court Parameters",
+            "order": 1
+        }
+    },
+    {
+        "id": 4,
+        "code": "APELIDO_UNIDADE_GESTORA",
+        "description": "Código númérico de 3 dígitos da UG no código de barras da GRU.",
+        "value": "102",
+        "admParameterCategory": {
+            "id": 1,
+            "description": "Court Parameters",
+            "order": 1
+        }
+    },
+    {
+        "id": 5,
+        "code": "BLOQUEAR_LOGIN",
+        "description": "Bloquear o sistema para que os usuários, exceto do administador, não façam login",
+        "value": "false",
+        "admParameterCategory": {
+            "id": 2,
+            "description": "Login Parameters",
+            "order": 2
+        }
+    },
+    {
+        "id": 6,
+        "code": "ATRIBUTO_LOGIN",
+        "description": "Define o atributo usado para efetuar login no sistema. Este parâmetro pode ser preenchido com: NOME_USUARIO ou CPF",
+        "value": "NOME_USUARIO",
+        "admParameterCategory": {
+            "id": 2,
+            "description": "Login Parameters",
+            "order": 2
+        }
+    },
+    {
+        "id": 7,
+        "code": "SMTP_SERVIDOR",
+        "description": "Servidor SMTP para que o sistema envie e-mail.",
+        "value": "smtp.trt1.jus.br",
+        "admParameterCategory": {
+            "id": 3,
+            "description": "E-mail Parameters",
+            "order": 3
+        }
+    },
+    {
+        "id": 8,
+        "code": "SMTP_PORTA",
+        "description": "Porta do servidor SMTP para que o sistema envie e-mail.",
+        "value": "25",
+        "admParameterCategory": {
+            "id": 3,
+            "description": "E-mail Parameters",
+            "order": 3
+        }
+    },
+    {
+        "id": 9,
+        "code": "SMTP_USERNAME",
+        "description": "Usuário para login no servidor SMTP.",
+        "value": null,
+        "admParameterCategory": {
+            "id": 3,
+            "description": "E-mail Parameters",
+            "order": 3
+        }
+    },
+    {
+        "id": 10,
+        "code": "SMTP_PASSWORD",
+        "description": "Senha para login no servidor SMTP.",
+        "value": null,
+        "admParameterCategory": {
+            "id": 3,
+            "description": "E-mail Parameters",
+            "order": 3
+        }
+    },
+    {
+        "id": 11,
+        "code": "SMTP_EMAIL_FROM",
+        "description": "E-mail do sistema.",
+        "value": "sistema@trt1.jus.br",
+        "admParameterCategory": {
+            "id": 3,
+            "description": "E-mail Parameters",
+            "order": 3
+        }
+    },
+    {
+        "id": 12,
+        "code": "PROXY_SERVIDOR",
+        "description": "Servidor do Proxy.",
+        "value": "bravo.trtrio.gov.br",
+        "admParameterCategory": {
+            "id": 4,
+            "description": "Network connection Parameters",
+            "order": 4
+        }
+    },
+    {
+        "id": 13,
+        "code": "PROXY_PORTA",
+        "description": "Porta do Proxy.",
+        "value": "8080",
+        "admParameterCategory": {
+            "id": 4,
+            "description": "Network connection Parameters",
+            "order": 4
+        }
+    },
+    {
+        "id": 14,
+        "code": "AMBIENTE_SISTEMA",
+        "description": "Define o ambiente onde o sistema está instalado. Este parâmetro pode ser preenchido com: desenvolvimento, homologação ou produção",
+        "value": "Produção",
+        "admParameterCategory": {
+            "id": 2,
+            "description": "Login Parameters",
+            "order": 2
+        }
+    },
+    {
+        "id": 15,
+        "code": "MODO_TESTE",
+        "description": "Habilitar o modo de teste por login, esquema do json [  { \"ativo\": \"false\", \"login\" : \"fulano\", \"setor\" : \"DISAD\", \"cargo\": \"15426\" } ]",
+        "value": "[ { \"ativo\": \"false\", \"login\" : \"rafael.remiro\", \"setor\" : \"ESACS RJ\", \"cargo\": \"15426\", \"loginVirtual\": \"\" }, { \"ativo\": \"false\", \"login\" : \"fabricio.peres\", \"setor\" : \"CSEG\", \"cargo\": \"15426\", \"loginVirtual\": \"\" }, { \"ativo\": \"false\", \"login\" : \"henrique.souza\", \"setor\" : \"SAM\", \"cargo\": \"15426\", \"loginVirtual\": \"\" }]",
+        "admParameterCategory": {
+            "id": 2,
+            "description": "Login Parameters",
+            "order": 2
+        }
+    }
+]
