@@ -40,7 +40,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/riquefsouza/hefesto-react.git"
-  },  
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

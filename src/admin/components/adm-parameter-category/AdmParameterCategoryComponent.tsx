@@ -12,6 +12,7 @@ import { AdmParameterCategory, emptyAdmParameterCategory } from "../../models/Ad
 import { Panel } from 'primereact/panel';
 import ReportPanelComponent from "../../../base/components/ReportPanel";
 import { MyEventType } from "../../../base/models/MyEventType";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmParameterCategoryComponent() {
 
@@ -68,15 +69,21 @@ function AdmParameterCategoryComponent() {
         let _listaAdmParameterCategory = [...listaAdmParameterCategory];
         let _admParameterCategory = {...admParameterCategory};
 
-        if (admParameterCategory.id) {
-          const index = findIndexById(admParameterCategory.id);
+        if (_admParameterCategory.id) {
+          admParameterCategoryService.update(_admParameterCategory).then((obj: AdmParameterCategory) => {
+            _admParameterCategory = obj;
 
-          _listaAdmParameterCategory[index] = _admParameterCategory;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Updated', life: 3000 });
+            const index = admParameterCategoryService.findIndexById(listaAdmParameterCategory, admParameterCategory.id);
+
+            _listaAdmParameterCategory[index] = _admParameterCategory;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Updated', life: 3000 });  
+          });
         } else {
-          _admParameterCategory.id = _listaAdmParameterCategory.length + 1;
-          _listaAdmParameterCategory.push(_admParameterCategory);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Created', life: 3000 });
+          admParameterCategoryService.insert(_admParameterCategory).then((obj: AdmParameterCategory) => {
+            _admParameterCategory = obj;
+            _listaAdmParameterCategory.push(_admParameterCategory);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Created', life: 3000 });
+          });
         }
 
         setListaAdmParameterCategory(_listaAdmParameterCategory);
@@ -85,29 +92,19 @@ function AdmParameterCategoryComponent() {
     }
   }
 
-  const findIndexById = (id: number): number => {
-    let index = -1;
-    for (let i = 0; i < listaAdmParameterCategory.length; i++) {
-        if (listaAdmParameterCategory[i].id === id) {
-            index = i;
-            break;
-        }
-    }
-
-    return index;
-  }
-
   const confirmDelete = (admParameterCategory: AdmParameterCategory) => {
     setAdmParameterCategory(admParameterCategory);
     setDeleteAdmParameterCategoryDialog(true);
   }
 
   const deleteAdmParameterCategory = () => {
-    let _listaAdmParameterCategory = listaAdmParameterCategory.filter(val => val.id !== admParameterCategory.id);
-    setListaAdmParameterCategory(_listaAdmParameterCategory);
-    setDeleteAdmParameterCategoryDialog(false);
-    setAdmParameterCategory(emptyAdmParameterCategory);
-    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Deleted', life: 3000 });
+    admParameterCategoryService.delete(admParameterCategory.id).then(obj => {
+      let _listaAdmParameterCategory = listaAdmParameterCategory.filter(val => val.id !== admParameterCategory.id);
+      setListaAdmParameterCategory(_listaAdmParameterCategory);
+      setDeleteAdmParameterCategoryDialog(false);
+      setAdmParameterCategory(emptyAdmParameterCategory);
+      toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Deleted', life: 3000 });
+    });
   }
 
   const confirmDeleteSelected = () => {
@@ -173,6 +170,7 @@ function AdmParameterCategoryComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Parameter Category" className="p-mb-2">

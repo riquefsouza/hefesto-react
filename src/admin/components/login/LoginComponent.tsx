@@ -7,6 +7,7 @@ import LoginService from "../../services/LoginService";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+import BarraMenu from "../../../base/components/BarraMenu";
 import './LoginComponent.css';
 
 function LoginComponent() {
@@ -29,11 +30,17 @@ function LoginComponent() {
   const login = () => {
     setSubmitted(true);
 
-    if (loginService.login(admUser)) {
-      history.push('/home');
-    } else {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'login now allowed!', life: 3000 });
-    }
+    loginService.login(admUser).then((islogged: boolean) => {
+      if (islogged) {
+        history.push('/home');
+      } else {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'login not allowed!', life: 3000 });
+      }
+    })
+    .catch(erro => {
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'login not allowed!', life: 3000 });
+    });
+
   }
 
   const onLoginChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -54,6 +61,7 @@ function LoginComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
       <div className="centered p-shadow-8" style={{width: '350px'}}>
         <Panel header="Log in" className="p-mb-2">

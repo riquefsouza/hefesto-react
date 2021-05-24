@@ -1,36 +1,32 @@
 import axios from 'axios';
+import { environment } from '../../environments/environment';
 import { AdmParameterCategory } from "../models/AdmParameterCategory";
+import { TokenService } from '../../base/services/TokenService';
 
 export default class AdmParameterCategoryService {
 
-    /*
-    public async findAll(): Promise<AdmParameterCategory[]> {
-        const response = await fetch('http://localhost:3000/data/admParameterCategory.json');
+    private PATH: string;
+    private tokenService: TokenService;
 
-        console.log("FETCH!");
-
-        return await response.json();
+    constructor() {
+        this.PATH = environment.apiVersion + '/admParameterCategory';
+        this.tokenService = new TokenService();
     }
-                
-
-    public async findAll(): Promise<AdmParameterCategory[]> {
-        const response = await axios.get('http://localhost:3000/data/admParameterCategory.json');
-        return await response.data;
-    }
-
-*/
-
-    public findIndexById(listaAdmParameterCategory: AdmParameterCategory[], id: number): number {
+    
+    public findIndexById(listaAdmParameterCategory: AdmParameterCategory[], id?: number | null): number {
         let index = -1;
-        for (let i = 0; i < listaAdmParameterCategory.length; i++) {
-            if (listaAdmParameterCategory[i].id === id) {
-                index = i;
-                break;
-            }
+        if (id){
+            for (let i = 0; i < listaAdmParameterCategory.length; i++) {
+                if (listaAdmParameterCategory[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }    
         }
         return index;
     }
-
+    
+    /*
     public async findAll(): Promise<AdmParameterCategory[]> {
         const res = await axios.get('data/admParameterCategory.json');
         return res.data;
@@ -50,6 +46,56 @@ export default class AdmParameterCategoryService {
                 });
             }
         );
+
+        return res;
+    }
+    */
+
+    public async findAllPaginated(page: number) {
+        const url = `${this.PATH}/paged/${page}`;
+        const res = await axios.get<AdmParameterCategory[]>(url);
+        return res;
+    }
+
+    public findAll(): Promise<AdmParameterCategory[]> {
+        const res = new Promise<AdmParameterCategory[]>((resolve, reject) => {
+            const url = this.PATH;
+            axios.get<AdmParameterCategory[]>(url, 
+                { headers: {'Authorization': this.tokenService.getToken()}} )
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });        
+
+        return res;
+    }
+
+    public async findById(id: number): Promise<AdmParameterCategory> {
+        const url = `${this.PATH}/${id}`;
+        const res = await axios.get<AdmParameterCategory>(url);
+        return res;
+    }
+
+    public async insert(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
+        const url = this.PATH;
+        const res = await axios.post<AdmParameterCategory>(url, obj);
+        return res;
+    }
+
+    public async update(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
+        const url = `${this.PATH}/${obj.id}`;
+        const res = await axios.put<AdmParameterCategory>(url, obj);
+
+        return res;
+    }
+
+    public async delete(id?: number | null): Promise<any> {
+        const url = `${this.PATH}/${id}`;
+        const res = await axios.delete(url);
 
         return res;
     }
