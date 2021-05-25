@@ -1,21 +1,36 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { environment } from '../../environments/environment';
+import { TokenService } from '../../base/services/TokenService';
 import { AdmPage } from '../models/AdmPage';
 import { AdmProfile } from "../models/AdmProfile";
 import { AdmUser } from '../models/AdmUser';
 
 export default class AdmProfileService {
 
-    public findIndexById(listaAdmProfile: AdmProfile[], id: number): number {
+    private PATH: string;
+    private axiosConfig: AxiosRequestConfig;
+    private tokenService: TokenService;
+
+    constructor() {
+        this.PATH = environment.apiVersion + '/admProfile';
+        this.tokenService = new TokenService();
+        this.axiosConfig = this.tokenService.getAuth();
+    }
+
+    public findIndexById(listaAdmProfile: AdmProfile[], id?: number | null): number {
         let index = -1;
-        for (let i = 0; i < listaAdmProfile.length; i++) {
-            if (listaAdmProfile[i].id === id) {
-                index = i;
-                break;
-            }
+        if (id){
+            for (let i = 0; i < listaAdmProfile.length; i++) {
+                if (listaAdmProfile[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }    
         }
         return index;
     }
 
+    /*
     public async findAll(): Promise<AdmProfile[]> {
         const res = await axios.get('data/admProfile.json');
         return res.data;
@@ -101,6 +116,143 @@ export default class AdmProfileService {
                 });
             }
         );
+
+        return res;
+    }
+    */
+
+    public findAllPaginated(page: number): Promise<AdmProfile[]> {
+        const res = new Promise<AdmProfile[]>((resolve, reject) => {
+            const url = `${this.PATH}/paged?page=${page}`;
+            const config = this.axiosConfig;
+            axios.get<AdmProfile[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public findAll(): Promise<AdmProfile[]> {
+        const res = new Promise<AdmProfile[]>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.get<AdmProfile[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public findById(id: number): Promise<AdmProfile> {
+        const res = new Promise<AdmProfile>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.get<AdmProfile>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public insert(obj: AdmProfile): Promise<AdmProfile> {
+        const res = new Promise<AdmProfile>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.post<AdmProfile>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public update(obj: AdmProfile): Promise<AdmProfile> {
+        const res = new Promise<AdmProfile>((resolve, reject) => {
+            const url = `${this.PATH}/${obj.id}`;
+            const config = this.axiosConfig;
+            axios.put<AdmProfile>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public delete(id?: number | null): Promise<any> {
+        const res = new Promise<any>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.delete<any>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public findProfilesByPage(admPage: AdmPage): Promise<AdmProfile[]> {
+        const res = new Promise<AdmProfile[]>((resolve, reject) => {
+            const url = `${this.PATH}/findProfilesByPage/${admPage.id}`;
+            const config = this.axiosConfig;
+            axios.get<AdmProfile[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+    
+        return res;
+    }
+
+    public findProfilesByUser(admUser: AdmUser): Promise<AdmProfile[]> {        
+        const res = new Promise<AdmProfile[]>((resolve, reject) => {
+            const url = `${this.PATH}/findProfilesByUser/${admUser.id}`;
+            const config = this.axiosConfig;
+            axios.get<AdmProfile[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
 
         return res;
     }

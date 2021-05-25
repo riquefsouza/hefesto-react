@@ -13,6 +13,7 @@ import { Tooltip } from 'primereact/tooltip';
 import { Dialog } from "primereact/dialog";
 import { AdmProfile, emptyAdmProfile } from "../../models/AdmProfile";
 import AdmProfileService from "../../services/AdmProfileService";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmProfileComponent() {
 
@@ -31,7 +32,7 @@ function AdmProfileComponent() {
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
 
   useEffect(() => {
-    admProfileService.findAllWithUsers().then(item => setListaAdmProfile(item));
+    admProfileService.findAll().then(item => setListaAdmProfile(item));
 
     setCols([
       { field: 'id', header: 'Id' },
@@ -78,11 +79,13 @@ function AdmProfileComponent() {
   }
 
   const onDelete = () => {
-    let _listaAdmProfile = listaAdmProfile.filter(val => val.id !== admProfile.id);
-    setListaAdmProfile(_listaAdmProfile);
-    setDeleteDialog(false);
-    setAdmProfile(emptyAdmProfile);
-    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Deleted', life: 3000 });
+    admProfileService.delete(admProfile.id).then(obj => {
+      let _listaAdmProfile = listaAdmProfile.filter(val => val.id !== admProfile.id);
+      setListaAdmProfile(_listaAdmProfile);
+      setDeleteDialog(false);
+      setAdmProfile(emptyAdmProfile);
+      toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Deleted', life: 3000 });
+    });  
   }
 
   const exportPdf = () => {
@@ -103,6 +106,7 @@ function AdmProfileComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Profile" className="p-mb-2">

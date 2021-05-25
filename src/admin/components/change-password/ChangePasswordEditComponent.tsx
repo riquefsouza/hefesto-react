@@ -6,6 +6,7 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { Password } from 'primereact/password';
 import { useHistory } from "react-router";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmChangePasswordEditComponent() {
 
@@ -89,6 +90,7 @@ function AdmChangePasswordEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
       
       <Panel header="Change password" className="p-mb-2">

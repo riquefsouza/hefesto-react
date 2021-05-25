@@ -13,6 +13,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from "primereact/datatable";
 import { Tooltip } from 'primereact/tooltip';
 import { Dialog } from "primereact/dialog";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmPageComponent() {
 
@@ -31,7 +32,7 @@ function AdmPageComponent() {
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
 
   useEffect(() => {
-    admPageService.findAllWithProfiles().then(item => setListaAdmPage(item));
+    admPageService.findAll().then(item => setListaAdmPage(item));
 
     setCols([
       { field: 'id', header: 'Id' },
@@ -79,11 +80,13 @@ function AdmPageComponent() {
   }
 
   const onDelete = () => {
-    let _listaAdmPage = listaAdmPage.filter(val => val.id !== admPage.id);
-    setListaAdmPage(_listaAdmPage);
-    setDeleteDialog(false);
-    setAdmPage(emptyAdmPage);
-    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Deleted', life: 3000 });
+    admPageService.delete(admPage.id).then(obj => {
+      let _listaAdmPage = listaAdmPage.filter(val => val.id !== admPage.id);
+      setListaAdmPage(_listaAdmPage);
+      setDeleteDialog(false);
+      setAdmPage(emptyAdmPage);
+      toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Deleted', life: 3000 });
+    });  
   }
 
   const exportPdf = () => {
@@ -104,6 +107,7 @@ function AdmPageComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Page" className="p-mb-2">

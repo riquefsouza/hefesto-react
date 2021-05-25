@@ -1,16 +1,18 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { environment } from '../../environments/environment';
-import { AdmParameterCategory } from "../models/AdmParameterCategory";
 import { TokenService } from '../../base/services/TokenService';
+import { AdmParameterCategory } from "../models/AdmParameterCategory";
 
 export default class AdmParameterCategoryService {
 
     private PATH: string;
+    private axiosConfig: AxiosRequestConfig;
     private tokenService: TokenService;
 
     constructor() {
         this.PATH = environment.apiVersion + '/admParameterCategory';
         this.tokenService = new TokenService();
+        this.axiosConfig = this.tokenService.getAuth();
     }
     
     public findIndexById(listaAdmParameterCategory: AdmParameterCategory[], id?: number | null): number {
@@ -51,17 +53,11 @@ export default class AdmParameterCategoryService {
     }
     */
 
-    public async findAllPaginated(page: number) {
-        const url = `${this.PATH}/paged/${page}`;
-        const res = await axios.get<AdmParameterCategory[]>(url);
-        return res;
-    }
-
-    public findAll(): Promise<AdmParameterCategory[]> {
+    public async findAllPaginated(page: number): Promise<AdmParameterCategory[]> {
         const res = new Promise<AdmParameterCategory[]>((resolve, reject) => {
-            const url = this.PATH;
-            axios.get<AdmParameterCategory[]>(url, 
-                { headers: {'Authorization': this.tokenService.getToken()}} )
+            const url = `${this.PATH}/paged?page=${page}`;
+            const config = this.axiosConfig;
+            axios.get<AdmParameterCategory[]>(url, config)
             .then((response) => {
                 resolve(response.data);
             })
@@ -69,33 +65,92 @@ export default class AdmParameterCategoryService {
                 console.log(error.config);
                 reject(error.toJSON());
             });
-        });        
+        });
 
         return res;
     }
 
-    public async findById(id: number): Promise<AdmParameterCategory> {
-        const url = `${this.PATH}/${id}`;
-        const res = await axios.get<AdmParameterCategory>(url);
-        return res;
-    }
-
-    public async insert(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
-        const url = this.PATH;
-        const res = await axios.post<AdmParameterCategory>(url, obj);
-        return res;
-    }
-
-    public async update(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
-        const url = `${this.PATH}/${obj.id}`;
-        const res = await axios.put<AdmParameterCategory>(url, obj);
+    public findAll(): Promise<AdmParameterCategory[]> {
+        const res = new Promise<AdmParameterCategory[]>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.get<AdmParameterCategory[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
 
         return res;
     }
 
-    public async delete(id?: number | null): Promise<any> {
-        const url = `${this.PATH}/${id}`;
-        const res = await axios.delete(url);
+    public findById(id: number): Promise<AdmParameterCategory> {
+        const res = new Promise<AdmParameterCategory>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.get<AdmParameterCategory>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public insert(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
+        const res = new Promise<AdmParameterCategory>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.post<AdmParameterCategory>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public update(obj: AdmParameterCategory): Promise<AdmParameterCategory> {
+        const res = new Promise<AdmParameterCategory>((resolve, reject) => {
+            const url = `${this.PATH}/${obj.id}`;
+            const config = this.axiosConfig;
+            axios.put<AdmParameterCategory>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public delete(id?: number | null): Promise<any> {
+        const res = new Promise<any>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.delete<any>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
 
         return res;
     }

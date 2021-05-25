@@ -9,6 +9,7 @@ import { MyEventType } from "../../../base/models/MyEventType";
 import { AdmParameterCategory, emptyAdmParameterCategory } from "../../models/AdmParameterCategory";
 import AdmParameterCategoryService from "../../services/AdmParameterCategoryService";
 import { StorageService } from "../../../base/services/StorageService";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmParameterCategoryEditComponent() {
 
@@ -45,14 +46,21 @@ function AdmParameterCategoryEditComponent() {
         let _admParameterCategory = {...admParameterCategory};
 
         if (admParameterCategory.id) {
-          const index = admParameterCategoryService.findIndexById(listaAdmParameterCategory, admParameterCategory.id);
+          admParameterCategoryService.update(_admParameterCategory).then((obj: AdmParameterCategory) => {
+            _admParameterCategory = obj;
 
-          _listaAdmParameterCategory[index] = _admParameterCategory;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Updated', life: 3000 });
+            const index = admParameterCategoryService.findIndexById(listaAdmParameterCategory, admParameterCategory.id);
+
+            _listaAdmParameterCategory[index] = _admParameterCategory;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Updated', life: 3000 });
+          });
         } else {
-          _admParameterCategory.id = _listaAdmParameterCategory.length + 1;
-          _listaAdmParameterCategory.push(_admParameterCategory);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Created', life: 3000 });
+          admParameterCategoryService.insert(_admParameterCategory).then((obj: AdmParameterCategory) => {
+            _admParameterCategory = obj;
+
+            _listaAdmParameterCategory.push(_admParameterCategory);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Category Created', life: 3000 });
+          });
         }
 
         setListaAdmParameterCategory(_listaAdmParameterCategory);
@@ -79,6 +87,7 @@ function AdmParameterCategoryEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Parameter Category" className="p-mb-2">

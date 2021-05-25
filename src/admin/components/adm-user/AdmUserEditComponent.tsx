@@ -11,6 +11,7 @@ import AdmUserService from "../../services/AdmUserService";
 import { AdmProfile } from "../../models/AdmProfile";
 import AdmProfileService from "../../services/AdmProfileService";
 import { Checkbox } from "primereact/checkbox";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmUserEditComponent() {
 
@@ -70,14 +71,21 @@ function AdmUserEditComponent() {
         let _admUser = {...admUser};
 
         if (admUser.id) {
+          admUserService.update(_admUser).then((obj: AdmUser) => {
+            _admUser = obj;
+
           const index = admUserService.findIndexById(listaAdmUser, admUser.id);
 
           _listaAdmUser[index] = _admUser;
           toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000 });
+        });  
         } else {
-          _admUser.id = _listaAdmUser.length + 1;
-          _listaAdmUser.push(_admUser);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000 });
+          admUserService.insert(_admUser).then((obj: AdmUser) => {
+            _admUser = obj;
+
+            _listaAdmUser.push(_admUser);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000 });
+          });  
         }
 
         setListaAdmUser(_listaAdmUser);
@@ -134,6 +142,9 @@ function AdmUserEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
+      <Toast ref={toast} />
+
       <Panel header="Configuration User" className="p-mb-2">
         <div className="p-grid p-justify-end">
           <Button label="Save" icon="pi pi-check" className="p-button-success p-mr-2" onClick={onSave}></Button>

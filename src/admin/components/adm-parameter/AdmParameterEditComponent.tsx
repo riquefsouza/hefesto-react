@@ -12,6 +12,7 @@ import { InputText } from 'primereact/inputtext';
 import { MyEventType } from "../../../base/models/MyEventType";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmParameterEditComponent() {
 
@@ -52,14 +53,21 @@ function AdmParameterEditComponent() {
         let _admParameter = {...admParameter};
 
         if (admParameter.id) {
-          const index = admParameterService.findIndexById(listaAdmParameter, admParameter.id);
+          admParameterService.update(_admParameter).then((obj: AdmParameter) => {
+            _admParameter = obj;
 
-          _listaAdmParameter[index] = _admParameter;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Updated', life: 3000 });
+            const index = admParameterService.findIndexById(listaAdmParameter, admParameter.id);
+
+            _listaAdmParameter[index] = _admParameter;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Updated', life: 3000 });
+          });  
         } else {
-          _admParameter.id = _listaAdmParameter.length + 1;
-          _listaAdmParameter.push(_admParameter);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Created', life: 3000 });
+          admParameterService.insert(_admParameter).then((obj: AdmParameter) => {
+            _admParameter = obj;
+            
+            _listaAdmParameter.push(_admParameter);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Created', life: 3000 });
+        });  
         }
 
         setListaAdmParameter(_listaAdmParameter);
@@ -102,6 +110,7 @@ function AdmParameterEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Parameter" className="p-mb-2">

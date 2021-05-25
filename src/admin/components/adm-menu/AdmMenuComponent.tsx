@@ -16,6 +16,7 @@ import TreeNode from "primereact/components/treenode/TreeNode";
 import AdmMenuService from "../../services/AdmMenuService";
 import AdmPageService from "../../services/AdmPageService";
 import { emptyTreeNode, NodeOnSelectEventType } from "../../../base/models/NodeOnSelectEventType";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmMenuComponent() {
 
@@ -41,7 +42,7 @@ function AdmMenuComponent() {
     admPageService.findAll().then(item => setListaAdmPage(item));
 
     admMenuService
-      .findAllWithPages()
+      .findAll()
       .then(lista => {
         setListaAdmMenu(lista);
 
@@ -158,11 +159,13 @@ function AdmMenuComponent() {
   }
 
   const onDelete = () => {
-    let _listaAdmMenu = listaAdmMenu.filter(val => val.id !== admMenu.id);
-    setListaAdmMenu(_listaAdmMenu);
-    setDeleteDialog(false);
-    setAdmMenu(emptyAdmMenu);
-    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Menu Deleted', life: 3000 });
+    admMenuService.delete(admMenu.id).then(obj => {    
+      let _listaAdmMenu = listaAdmMenu.filter(val => val.id !== admMenu.id);
+      setListaAdmMenu(_listaAdmMenu);
+      setDeleteDialog(false);
+      setAdmMenu(emptyAdmMenu);
+      toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Menu Deleted', life: 3000 });
+    });
   }
 
   const onSave = () => {
@@ -205,6 +208,7 @@ function AdmMenuComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Menu" className="p-mb-2">

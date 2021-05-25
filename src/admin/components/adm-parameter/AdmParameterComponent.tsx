@@ -15,6 +15,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from "primereact/datatable";
 import { Tooltip } from 'primereact/tooltip';
 import { Dialog } from "primereact/dialog";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmParameterComponent() {
 
@@ -90,11 +91,13 @@ function AdmParameterComponent() {
   }
 
   const onDelete = () => {
-    let _listaAdmParameter = listaAdmParameter.filter(val => val.id !== admParameter.id);
-    setListaAdmParameter(_listaAdmParameter);
-    setDeleteDialog(false);
-    setAdmParameter(emptyAdmParameter);
-    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Deleted', life: 3000 });
+    admParameterService.delete(admParameter.id).then(obj => {
+      let _listaAdmParameter = listaAdmParameter.filter(val => val.id !== admParameter.id);
+      setListaAdmParameter(_listaAdmParameter);
+      setDeleteDialog(false);
+      setAdmParameter(emptyAdmParameter);
+      toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Parameter Deleted', life: 3000 });
+    });  
   }
 
   const exportPdf = () => {
@@ -115,6 +118,7 @@ function AdmParameterComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Parameter" className="p-mb-2">

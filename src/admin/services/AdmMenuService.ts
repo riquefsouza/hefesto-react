@@ -1,12 +1,20 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { environment } from '../../environments/environment';
+import { TokenService } from '../../base/services/TokenService';
 import { AdmMenu } from "../models/AdmMenu";
 import AdmPageService from './AdmPageService';
 
 export default class AdmMenuService {
 
     private admPageService: AdmPageService;
+    private PATH: string;
+    private axiosConfig: AxiosRequestConfig;
+    private tokenService: TokenService;
 
-    constructor() { 
+    constructor() {
+        this.PATH = environment.apiVersion + '/admMenu';
+        this.tokenService = new TokenService();
+        this.axiosConfig = this.tokenService.getAuth();
         this.admPageService = new AdmPageService();
     }
 
@@ -21,6 +29,7 @@ export default class AdmMenuService {
         return index;
     }
 
+    /*
     public async findAll(): Promise<AdmMenu[]> {
         const res = await axios.get('data/admMenu.json');
         return res.data;
@@ -64,6 +73,109 @@ export default class AdmMenuService {
                 reject(erro);
             });
 
+        });
+
+        return res;
+    }
+    */
+
+    public findAllPaginated(page: number): Promise<AdmMenu[]> {
+        const res = new Promise<AdmMenu[]>((resolve, reject) => {
+            const url = `${this.PATH}/paged?page=${page}`;
+            const config = this.axiosConfig;
+            axios.get<AdmMenu[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public findAll(): Promise<AdmMenu[]> {
+        const res = new Promise<AdmMenu[]>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.get<AdmMenu[]>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public findById(id: number): Promise<AdmMenu> {
+        const res = new Promise<AdmMenu>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.get<AdmMenu>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public insert(obj: AdmMenu): Promise<AdmMenu> {
+        const res = new Promise<AdmMenu>((resolve, reject) => {
+            const url = this.PATH;
+            const config = this.axiosConfig;
+            axios.post<AdmMenu>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public update(obj: AdmMenu): Promise<AdmMenu> {
+        const res = new Promise<AdmMenu>((resolve, reject) => {
+            const url = `${this.PATH}/${obj.id}`;
+            const config = this.axiosConfig;
+            axios.put<AdmMenu>(url, obj, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
+        });
+
+        return res;
+    }
+
+    public delete(id?: number | null): Promise<any> {
+        const res = new Promise<any>((resolve, reject) => {
+            const url = `${this.PATH}/${id}`;
+            const config = this.axiosConfig;
+            axios.delete<any>(url, config)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.log(error.config);
+                reject(error.toJSON());
+            });
         });
 
         return res;

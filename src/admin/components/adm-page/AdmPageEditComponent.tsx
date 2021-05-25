@@ -10,6 +10,7 @@ import { InputText } from 'primereact/inputtext';
 import { Toast } from "primereact/toast";
 import { AdmProfile } from "../../models/AdmProfile";
 import AdmProfileService from "../../services/AdmProfileService";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmPageEditComponent() {
 
@@ -69,14 +70,21 @@ function AdmPageEditComponent() {
         let _admPage = {...admPage};
 
         if (admPage.id) {
-          const index = admPageService.findIndexById(listaAdmPage, admPage.id);
+          admPageService.update(_admPage).then((obj: AdmPage) => {
+            _admPage = obj;
 
-          _listaAdmPage[index] = _admPage;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Updated', life: 3000 });
+            const index = admPageService.findIndexById(listaAdmPage, admPage.id);
+
+            _listaAdmPage[index] = _admPage;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Updated', life: 3000 });
+          });  
         } else {
-          _admPage.id = _listaAdmPage.length + 1;
-          _listaAdmPage.push(_admPage);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Created', life: 3000 });
+          admPageService.insert(_admPage).then((obj: AdmPage) => {
+            _admPage = obj;
+
+            _listaAdmPage.push(_admPage);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Page Created', life: 3000 });
+          });  
         }
 
         setListaAdmPage(_listaAdmPage);
@@ -118,6 +126,7 @@ function AdmPageEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
       <Toast ref={toast} />
 
       <Panel header="Configuration Page" className="p-mb-2">

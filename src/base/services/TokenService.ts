@@ -17,4 +17,8 @@ export class TokenService {
     removeToken() {
         window.localStorage.removeItem(KEY);
     }
+
+    getAuth() {
+        return { headers: {'Authorization': this.getToken()}};
+    }
 }

@@ -13,6 +13,7 @@ import AdmProfileService from "../../services/AdmProfileService";
 import { Checkbox } from "primereact/checkbox";
 import { AdmUser } from "../../models/AdmUser";
 import AdmUserService from "../../services/AdmUserService";
+import BarraMenu from "../../../base/components/BarraMenu";
 
 function AdmProfileEditComponent() {
 
@@ -85,14 +86,21 @@ function AdmProfileEditComponent() {
         let _admProfile = {...admProfile};
 
         if (admProfile.id) {
-          const index = admProfileService.findIndexById(listaAdmProfile, admProfile.id);
+          admProfileService.update(_admProfile).then((obj: AdmProfile) => {
+            _admProfile = obj;
 
-          _listaAdmProfile[index] = _admProfile;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Updated', life: 3000 });
+            const index = admProfileService.findIndexById(listaAdmProfile, admProfile.id);
+
+            _listaAdmProfile[index] = _admProfile;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Updated', life: 3000 });
+          });  
         } else {
-          _admProfile.id = _listaAdmProfile.length + 1;
-          _listaAdmProfile.push(_admProfile);
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Created', life: 3000 });
+          admProfileService.insert(_admProfile).then((obj: AdmProfile) => {
+            _admProfile = obj;
+
+            _listaAdmProfile.push(_admProfile);
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Profile Created', life: 3000 });
+          });
         }
 
         setListaAdmProfile(_listaAdmProfile);
@@ -155,6 +163,9 @@ function AdmProfileEditComponent() {
 
   return (
     <div>
+      <BarraMenu></BarraMenu>
+      <Toast ref={toast} />
+
       <Panel header="Configuration Profile" className="p-mb-2">
         <div className="p-grid p-justify-end">
           <Button label="Save" icon="pi pi-check" className="p-button-success p-mr-2" onClick={onSave}></Button>
