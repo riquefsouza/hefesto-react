@@ -17,6 +17,10 @@ import AdmMenuService from "../../services/AdmMenuService";
 import AdmPageService from "../../services/AdmPageService";
 import { emptyTreeNode, NodeOnSelectEventType } from "../../../base/models/NodeOnSelectEventType";
 import BarraMenu from "../../../base/components/BarraMenu";
+import ReportPanelComponent from "../../../base/components/ReportPanel";
+import { ItypeReport, PDFReport } from "../../../base/services/ReportService";
+import { ReportParamForm, emptyReportParamForm } from "../../../base/models/ReportParamsForm";
+
 
 function AdmMenuComponent() {
 
@@ -38,6 +42,10 @@ function AdmMenuComponent() {
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
   const history = useHistory();
   
+  const [selectedTypeReport, setSelectedTypeReport] = useState<ItypeReport>(PDFReport);
+  const [selectedForceDownload, setSelectedForceDownload] = useState(true);
+  const [reportParamForm, setReportParamForm] = useState<ReportParamForm>(emptyReportParamForm);
+
   useEffect(() => {
     admPageService.findAll().then(item => setListaAdmPage(item));
 
@@ -125,8 +133,22 @@ function AdmMenuComponent() {
     setSelectedAdmMenu(_menu);
   }
 
+  const onChangedTypeReport = (typeReport: ItypeReport) => {
+    setSelectedTypeReport(typeReport);
+    setReportParamForm({ reportType: typeReport.type, 
+      forceDownload: selectedForceDownload });
+  }
+
+  const onChangedForceDownload = (forceDownload: boolean) => {
+    setSelectedForceDownload(forceDownload);
+    setReportParamForm({ reportType: selectedTypeReport.type, 
+      forceDownload: forceDownload });
+  }
+
   const onExport = () => {
-    toast.current.show({ severity: 'info', summary: 'Page Exported', detail: 'Pages Exported', life: 3000 });
+    admMenuService.report(reportParamForm).then(() => {
+      toast.current.show({ severity: 'info', summary: 'Menu Exported', detail: 'Menu Exported', life: 3000 });
+    });
   }
 
   const onCancel = () => {
@@ -159,7 +181,7 @@ function AdmMenuComponent() {
   }
 
   const onDelete = () => {
-    admMenuService.delete(admMenu.id).then(obj => {    
+    admMenuService.delete(admMenu.id).then(obj => {
       let _listaAdmMenu = listaAdmMenu.filter(val => val.id !== admMenu.id);
       setListaAdmMenu(_listaAdmMenu);
       setDeleteDialog(false);
@@ -212,6 +234,8 @@ function AdmMenuComponent() {
       <Toast ref={toast} />
 
       <Panel header="Menu" className="p-mb-2">
+          <ReportPanelComponent typeReportChange={e => onChangedTypeReport(e.value)}
+              forceDownloadChange={e => onChangedForceDownload(e.checked)}></ReportPanelComponent>
       </Panel>
       <Toolbar className="p-mb-2"
         left = {

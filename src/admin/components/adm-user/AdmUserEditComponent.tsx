@@ -74,11 +74,11 @@ function AdmUserEditComponent() {
           admUserService.update(_admUser).then((obj: AdmUser) => {
             _admUser = obj;
 
-          const index = admUserService.findIndexById(listaAdmUser, admUser.id);
+            const index = admUserService.findIndexById(listaAdmUser, admUser.id);
 
-          _listaAdmUser[index] = _admUser;
-          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000 });
-        });  
+            _listaAdmUser[index] = _admUser;
+            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000 });
+          });  
         } else {
           admUserService.insert(_admUser).then((obj: AdmUser) => {
             _admUser = obj;

@@ -4,6 +4,8 @@ import { TokenService } from '../../base/services/TokenService';
 import { AdmPage } from '../models/AdmPage';
 import { AdmProfile } from "../models/AdmProfile";
 import { AdmUser } from '../models/AdmUser';
+import { ReportParamForm } from '../../base/models/ReportParamsForm';
+import * as FileSaver from 'file-saver';
 
 export default class AdmProfileService {
 
@@ -130,8 +132,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -147,8 +149,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -164,8 +166,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -181,8 +183,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -198,8 +200,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -215,8 +217,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
@@ -232,8 +234,8 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
     
@@ -249,12 +251,32 @@ export default class AdmProfileService {
                 resolve(response.data);
             })
             .catch((error) => {
-                console.log(error.config);
-                reject(error.toJSON());
+                console.log(error.message);
+                reject(error.message);
             });
         });
 
         return res;
     }
+
+    public report(obj: ReportParamForm): Promise<string> {
+        const res = new Promise<string>((resolve, reject) => {
+            const url = `${this.PATH}/report`;
+            const config: AxiosRequestConfig = this.tokenService.getAuthWithBlob();
+            axios.post(url, obj, config)
+            .then((response) => {
+                const filename: string = 'AdmProfile.' + obj.reportType.toLowerCase();
+                FileSaver.saveAs(response.data, filename);
+                resolve(filename);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                reject(error.message);
+            });
+        });
+
+        return res;
+    }
+
 
 }

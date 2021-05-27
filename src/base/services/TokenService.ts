@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 const KEY = 'authToken';
 
 export class TokenService {
@@ -18,7 +20,15 @@ export class TokenService {
         window.localStorage.removeItem(KEY);
     }
 
-    getAuth() {
-        return { headers: {'Authorization': this.getToken()}};
+    getAuth(): AxiosRequestConfig {
+        return { headers: {'Authorization': this.getToken() }};
     }
+
+    getAuthWithBlob(): AxiosRequestConfig {
+        return { 
+            headers: {'Authorization': this.getToken()},
+            responseType: 'blob' 
+        };
+    }
+
 }

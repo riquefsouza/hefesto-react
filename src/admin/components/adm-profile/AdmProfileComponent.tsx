@@ -14,6 +14,9 @@ import { Dialog } from "primereact/dialog";
 import { AdmProfile, emptyAdmProfile } from "../../models/AdmProfile";
 import AdmProfileService from "../../services/AdmProfileService";
 import BarraMenu from "../../../base/components/BarraMenu";
+import { ItypeReport, PDFReport } from "../../../base/services/ReportService";
+import { ReportParamForm, emptyReportParamForm } from "../../../base/models/ReportParamsForm";
+
 
 function AdmProfileComponent() {
 
@@ -31,6 +34,10 @@ function AdmProfileComponent() {
   const history = useHistory();
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
 
+  const [selectedTypeReport, setSelectedTypeReport] = useState<ItypeReport>(PDFReport);
+  const [selectedForceDownload, setSelectedForceDownload] = useState(true);
+  const [reportParamForm, setReportParamForm] = useState<ReportParamForm>(emptyReportParamForm);
+
   useEffect(() => {
     admProfileService.findAll().then(item => setListaAdmProfile(item));
 
@@ -44,8 +51,22 @@ function AdmProfileComponent() {
 
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const onChangedTypeReport = (typeReport: ItypeReport) => {
+    setSelectedTypeReport(typeReport);
+    setReportParamForm({ reportType: typeReport.type, 
+      forceDownload: selectedForceDownload });
+  }
+
+  const onChangedForceDownload = (forceDownload: boolean) => {
+    setSelectedForceDownload(forceDownload);
+    setReportParamForm({ reportType: selectedTypeReport.type, 
+      forceDownload: forceDownload });
+  }
+
   const onExport = () => {
-    toast.current.show({ severity: 'info', summary: 'Profile Exported', detail: 'Profiles Exported', life: 3000 });
+    admProfileService.report(reportParamForm).then(() => {
+      toast.current.show({ severity: 'info', summary: 'Profile Exported', detail: 'Profile Exported', life: 3000 });
+    });
   }
 
   const onCancel = () => {
@@ -110,7 +131,8 @@ function AdmProfileComponent() {
       <Toast ref={toast} />
 
       <Panel header="Configuration Profile" className="p-mb-2">
-        <ReportPanelComponent></ReportPanelComponent>
+          <ReportPanelComponent typeReportChange={e => onChangedTypeReport(e.value)}
+              forceDownloadChange={e => onChangedForceDownload(e.checked)}></ReportPanelComponent>
       </Panel>
 
       <Toolbar className="p-mb-2"
