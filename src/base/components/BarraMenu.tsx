@@ -14,6 +14,8 @@ function BarraMenu() {
     const [logged] = useState<boolean>(userService.isLogged());
     const history = useHistory();
 
+    const [username] = useState<string>(userService.getUserName());
+
     const getURL = (): string => {
         if (window.location.port)
             return window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
@@ -59,7 +61,13 @@ function BarraMenu() {
                 </a>
             }
             end = {
-                <Button label="Logout" icon="pi pi-power-off" onClick={logout} />
+                <div v-if="username">
+                    <i className="pi pi-user p-mr-1"></i>
+                    <a href="/" className="p-mr-5">{username}</a>
+                    <Button label="Logout" icon="pi pi-power-off" onClick={logout} />
+                </div>
+    
+                
             }
         />
     </div>
