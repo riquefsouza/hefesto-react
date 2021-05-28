@@ -42,20 +42,42 @@ function App() {
           <Route path='/home'>
             {userService.isLogged() ? <BarraMenu />: <Redirect to="/login" />}
           </Route>
-          <Route path='/admParameterCategory'>
+          <Route path='/admin/admParameterCategory'>
             {userService.isLogged() ? <AdmParameterCategoryComponent />: <Redirect to="/login" />}
           </Route>
-          <Route path='/admParameterCategoryEdit' component={ AdmParameterCategoryEditComponent }/>
-          <Route path='/admParameter' component={ AdmParameterComponent }/>
-          <Route path='/admParameterEdit' component={ AdmParameterEditComponent }/>
-          <Route path='/admPage' component={ AdmPageComponent }/>
-          <Route path='/admPageEdit' component={ AdmPageEditComponent }/>
-          <Route path='/admProfile' component={ AdmProfileComponent }/>
-          <Route path='/admProfileEdit' component={ AdmProfileEditComponent }/>
-          <Route path='/admUser' component={ AdmUserComponent }/>
-          <Route path='/admUserEdit' component={ AdmUserEditComponent }/>
-          <Route path='/admMenu' component={ AdmMenuComponent }/>
-          <Route path='/changePasswordEdit' component={ ChangePasswordEditComponent }/>
+          <Route path='/admin/admParameterCategoryEdit'>
+            {userService.isLogged() ? <AdmParameterCategoryEditComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admParameter'>
+            {userService.isLogged() ? <AdmParameterComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admParameterEdit'>
+            {userService.isLogged() ? <AdmParameterEditComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admPage'>
+            {userService.isLogged() ? <AdmPageComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admPageEdit'>
+            {userService.isLogged() ? <AdmPageEditComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admProfile'>
+            {userService.isLogged() ? <AdmProfileComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admProfileEdit'>
+            {userService.isLogged() ? <AdmProfileEditComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admUser'>
+            {userService.isLogged() ? <AdmUserComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admUserEdit'>
+            {userService.isLogged() ? <AdmUserEditComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/admMenu'>
+            {userService.isLogged() ? <AdmMenuComponent />: <Redirect to="/login" />}
+          </Route>
+          <Route path='/admin/changePasswordEdit'>
+            {userService.isLogged() ? <ChangePasswordEditComponent />: <Redirect to="/login" />}
+          </Route>
           <Route path='/login' component={ LoginComponent }/>
           <Route path="*" component={ NotFoundComponent } />
         </Switch>

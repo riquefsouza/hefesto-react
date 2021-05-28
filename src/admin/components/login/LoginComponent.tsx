@@ -9,10 +9,12 @@ import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import BarraMenu from "../../../base/components/BarraMenu";
 import './LoginComponent.css';
+import { UserService } from "../../../base/user/UserService";
 
 function LoginComponent() {
 
   const loginService = new LoginService();
+  const userService = new UserService();
 
   const [admUser, setAdmUser] = useState<AdmUser>(emptyAdmUser);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -33,11 +35,14 @@ function LoginComponent() {
     loginService.login(admUser).then((islogged: boolean) => {
       if (islogged) {
         history.push('/home');
+        history.push('/home');
       } else {
+        userService.logout();
         toast.current.show({ severity: 'error', summary: 'Error', detail: 'login not allowed!', life: 3000 });
       }
     })
     .catch(erro => {
+      userService.logout();
       toast.current.show({ severity: 'error', summary: 'Error', detail: 'login not allowed!', life: 3000 });
     });
 

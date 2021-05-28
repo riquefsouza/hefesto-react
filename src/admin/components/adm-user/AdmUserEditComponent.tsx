@@ -60,7 +60,7 @@ function AdmUserEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/admUser');
+    history.push('/admin/admUser');
   }
 
   const onSave = () => {
@@ -90,7 +90,7 @@ function AdmUserEditComponent() {
 
         setListaAdmUser(_listaAdmUser);
         setAdmUser(emptyAdmUser);
-        history.push('/admUser');
+        history.push('/admin/admUser');
     }
   }
   

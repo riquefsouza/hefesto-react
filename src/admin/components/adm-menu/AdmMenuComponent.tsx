@@ -152,7 +152,7 @@ function AdmMenuComponent() {
   }
 
   const onCancel = () => {
-    history.push('/');
+    history.push('/home');
   }
 
   const onInsert = () => {

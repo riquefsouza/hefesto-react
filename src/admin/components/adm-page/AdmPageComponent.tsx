@@ -71,7 +71,7 @@ function AdmPageComponent() {
   }
 
   const onCancel = () => {
-    history.push('/');
+    history.push('/home');
   }
 
   const onInsert = () => {
@@ -80,7 +80,7 @@ function AdmPageComponent() {
 
     // storageService.setStorage(admPage);
     storageService.persistObj('admPage', admPage);
-    history.push('/admPageEdit');
+    history.push('/admin/admPageEdit');
   }
 
   const onEdit = (admPage: AdmPage) => {
@@ -88,7 +88,7 @@ function AdmPageComponent() {
 
     // storageService.setStorage(admPage);
     storageService.persistObj('admPage', admPage);
-    history.push('/admPageEdit');
+    history.push('/admin/admPageEdit');
   }
 
   const confirmDelete = (admPage: AdmPage) => {

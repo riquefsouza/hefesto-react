@@ -42,7 +42,7 @@ function AdmParameterEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/admParameter');
+    history.push('/admin/admParameter');
   }
 
   const onSave = () => {
@@ -72,7 +72,7 @@ function AdmParameterEditComponent() {
 
         setListaAdmParameter(_listaAdmParameter);
         setAdmParameter(emptyAdmParameter);
-        history.push('/admParameter');
+        history.push('/admin/admParameter');
     }
   }
   

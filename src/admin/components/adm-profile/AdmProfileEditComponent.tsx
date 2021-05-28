@@ -75,7 +75,7 @@ function AdmProfileEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/admProfile');
+    history.push('/admin/admProfile');
   }
 
   const onSave = () => {
@@ -105,7 +105,7 @@ function AdmProfileEditComponent() {
 
         setListaAdmProfile(_listaAdmProfile);
         setAdmProfile(emptyAdmProfile);
-        history.push('/admProfile');
+        history.push('/admin/admProfile');
     }
   }
   

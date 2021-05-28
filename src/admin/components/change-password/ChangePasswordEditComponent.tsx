@@ -26,7 +26,7 @@ function AdmChangePasswordEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/');
+    history.push('/home');
   }
 
   const onSave = () => {

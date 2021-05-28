@@ -70,7 +70,7 @@ function AdmProfileComponent() {
   }
 
   const onCancel = () => {
-    history.push('/');
+    history.push('/home');
   }
 
   const onInsert = () => {
@@ -79,7 +79,7 @@ function AdmProfileComponent() {
 
     // storageService.setStorage(admProfile);
     storageService.persistObj('admProfile', admProfile);
-    history.push('/admProfileEdit');
+    history.push('/admin/admProfileEdit');
   }
 
   const onEdit = (admProfile: AdmProfile) => {
@@ -87,7 +87,7 @@ function AdmProfileComponent() {
 
     // storageService.setStorage(admProfile);
     storageService.persistObj('admProfile', admProfile);
-    history.push('/admProfileEdit');
+    history.push('/admin/admProfileEdit');
   }
 
   const confirmDelete = (admProfile: AdmProfile) => {

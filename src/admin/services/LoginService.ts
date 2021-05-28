@@ -4,15 +4,19 @@ import { TokenDTO } from '../../base/models/TokenDTO';
 import { UserService } from '../../base/user/UserService';
 //import { environment } from '../../environments/environment';
 import axios from 'axios';
+import AdmProfileService from './AdmProfileService';
+import { MenuItemDTO } from '../../base/models/MenuItemDTO';
 
 export default class LoginService {
 
     //private PATH: string;
     private userService: UserService;
+    private admProfileService: AdmProfileService;
 
     constructor() { 
         //this.PATH = environment.url;
         this.userService = new UserService();
+        this.admProfileService = new AdmProfileService();
     }
 
     public login(admUser: AdmUser): Promise<boolean> {
@@ -29,7 +33,13 @@ export default class LoginService {
                     
                     // axios.defaults.headers.common['Authorization'] = obj.tipo + ' ' + obj.token;
 
-                    resolve(true);
+                    if (this.userService.getIdProfiles().length > 0) {
+                        this.admProfileService.mountMenu(this.userService.getIdProfiles())
+                        .then((menus: MenuItemDTO[]) => {
+                          this.userService.setMenuItems(menus);
+                          resolve(true);
+                        });
+                    }
                 })
                 .catch(error => {
                     reject(false);

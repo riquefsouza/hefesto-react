@@ -73,7 +73,7 @@ function AdmUserComponent() {
   }
 
   const onCancel = () => {
-    history.push('/');
+    history.push('/home');
   }
 
   const onInsert = () => {
@@ -82,7 +82,7 @@ function AdmUserComponent() {
 
     // storageService.setStorage(admUser);
     storageService.persistObj('admUser', admUser);
-    history.push('/admUserEdit');
+    history.push('/admin/admUserEdit');
   }
 
   const onEdit = (admUser: AdmUser) => {
@@ -90,7 +90,7 @@ function AdmUserComponent() {
 
     // storageService.setStorage(admUser);
     storageService.persistObj('admUser', admUser);
-    history.push('/admUserEdit');
+    history.push('/admin/admUserEdit');
   }
 
   const confirmDelete = (admUser: AdmUser) => {

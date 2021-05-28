@@ -35,7 +35,7 @@ function AdmParameterCategoryEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/admParameter');
+    history.push('/admin/admParameterCategory');
   }
 
   const onSave = () => {
@@ -65,7 +65,7 @@ function AdmParameterCategoryEditComponent() {
 
         setListaAdmParameterCategory(_listaAdmParameterCategory);
         setAdmParameterCategory(emptyAdmParameterCategory);
-        history.push('/admParameterCategory');
+        history.push('/admin/admParameterCategory');
     }
   }
 

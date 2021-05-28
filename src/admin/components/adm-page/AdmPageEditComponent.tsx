@@ -59,7 +59,7 @@ function AdmPageEditComponent() {
   }
 
   const onCancel = () => {
-    history.push('/admPage');
+    history.push('/admin/admPage');
   }
 
   const onSave = () => {
@@ -89,7 +89,7 @@ function AdmPageEditComponent() {
 
         setListaAdmPage(_listaAdmPage);
         setAdmPage(emptyAdmPage);
-        history.push('/admPage');
+        history.push('/admin/admPage');
     }
   }
   
