@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { Menubar } from "primereact/menubar";
-import { Button } from "primereact/button";
 import { MenuItem } from "primereact/api";
 import { UserService } from '../../base/user/UserService';
 import { useHistory } from "react-router";
@@ -47,6 +46,11 @@ function BarraMenu() {
                         
             menuItems.push(menuItem);
         });    
+
+        if (menuItems) {
+            menuItems.push({ label: 'Sair', icon: 'pi pi-fw pi-power-off', command: () => { logout(); } });
+        }
+      
     }
 
     /*
@@ -91,11 +95,8 @@ function BarraMenu() {
             end = {
                 <div v-if="username">
                     <i className="pi pi-user p-mr-1"></i>
-                    <a href="/home" className="p-mr-5">{username}</a>
-                    <Button label="Logout" icon="pi pi-power-off" onClick={logout} />
-                </div>
-    
-                
+                    <span className="p-mr-5">{username}</span>
+                </div>            
             }
         />
     </div>

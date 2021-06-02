@@ -35,7 +35,6 @@ function LoginComponent() {
     loginService.login(admUser).then((islogged: boolean) => {
       if (islogged) {
         history.push('/home');
-        history.push('/home');
       } else {
         userService.logout();
         toast.current.show({ severity: 'error', summary: 'Error', detail: 'login not allowed!', life: 3000 });

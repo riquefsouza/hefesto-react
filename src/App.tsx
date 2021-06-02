@@ -39,9 +39,7 @@ function App() {
     <main>
         <Switch>
           <Route exact path="/" render={() => (<Redirect to="/login" />)} /> 
-          <Route path='/home'>
-            {userService.isLogged() ? <BarraMenu />: <Redirect to="/login" />}
-          </Route>
+          <Route path='/home' render={() => (userService.isLogged() ? <BarraMenu /> : <Redirect to="/login" />)} />
           <Route path='/admin/admParameterCategory'>
             {userService.isLogged() ? <AdmParameterCategoryComponent />: <Redirect to="/login" />}
           </Route>
