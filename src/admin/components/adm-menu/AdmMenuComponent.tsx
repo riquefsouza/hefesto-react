@@ -186,12 +186,41 @@ function AdmMenuComponent() {
       setListaAdmMenu(_listaAdmMenu);
       setDeleteDialog(false);
       setAdmMenu(emptyAdmMenu);
+      updateMenusTree(_listaAdmMenu);
       toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Menu Deleted', life: 3000 });
     });
   }
 
   const onSave = () => {
     setSubmitted(true);
+
+    if (admMenu.description.trim()) {
+      let _listaAdmMenu = [...listaAdmMenu];
+      let _admMenu = {...admMenu};
+
+      if (_admMenu.id) {
+        admMenuService.update(_admMenu).then((obj: AdmMenu) => {
+          _admMenu = obj;
+
+          const index = admMenuService.findIndexById(listaAdmMenu, admMenu.id);
+
+          _listaAdmMenu[index] = _admMenu;
+          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Menu Updated', life: 3000 });  
+        });
+      } else {
+        admMenuService.insert(_admMenu).then((obj: AdmMenu) => {
+          _admMenu = obj;
+          _listaAdmMenu.push(_admMenu);
+          toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Menu Created', life: 3000 });
+        });
+      }
+
+      setListaAdmMenu(_listaAdmMenu);
+      setAdmMenuDialog(false);
+      setAdmMenu(emptyAdmMenu);
+      updateMenusTree(_listaAdmMenu);
+    }
+
   }
 
   const onAdmPageChange = (e: MyEventType) => {

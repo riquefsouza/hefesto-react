@@ -1,4 +1,14 @@
+import AdmUserService from './AdmUserService';
+import * as bcryptjs from 'bcryptjs';
+import { AdmUser } from '../models/AdmUser';
+
 export default class ChangePasswordService {
+
+    private admUserService: AdmUserService;
+
+    constructor() {
+        this.admUserService = new AdmUserService();
+    }
 
     private distinct = (arrArg: string[]) => {
         return arrArg.filter((elem: string, pos: number, arr: string[]) => {
@@ -69,8 +79,18 @@ export default class ChangePasswordService {
         }
     }
 
-    public updatePassword(newPassword: string): boolean {
-        throw new Error('Method not implemented.');
+    public updatePassword(admUser: AdmUser): boolean {
+
+        const salt = bcryptjs.genSaltSync(10);
+        admUser.password = bcryptjs.hashSync(admUser.confirmNewPassword, salt);
+
+        this.admUserService.update(admUser).then(() => {
+            return true;
+        })
+        .catch(() => {
+            return false;
+        });
+        return false;
     }
 
 }

@@ -43,6 +43,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+```
 npm install --save react-router
 npm install --save @types/react-router
 
@@ -61,3 +62,6 @@ npm install --save xlsx
 npm install --save file-saver
 npm install --save @types/file-saver
 npm install --save jwt-decode
+npm install bcryptjs --save
+npm install @types/bcryptjs --save-dev
+```

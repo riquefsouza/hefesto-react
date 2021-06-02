@@ -55,7 +55,7 @@ function AdmChangePasswordEditComponent() {
         return;
       }
 
-      if (changePasswordService.updatePassword(admUser.newPassword)) {
+      if (changePasswordService.updatePassword(admUser)) {
         toast.current.show({
           severity: 'success', summary: 'Successful',
           detail: 'Password changed successfully!', life: 3000

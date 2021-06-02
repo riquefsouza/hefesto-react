@@ -20,12 +20,14 @@ export default class AdmMenuService {
         this.admPageService = new AdmPageService();
     }
 
-    public findIndexById(listaAdmMenu: AdmMenu[], id: number): number {
+    public findIndexById(listaAdmMenu: AdmMenu[], id?: number | null): number {
         let index = -1;
-        for (let i = 0; i < listaAdmMenu.length; i++) {
-            if (listaAdmMenu[i].id === id) {
-                index = i;
-                break;
+        if (id){
+            for (let i = 0; i < listaAdmMenu.length; i++) {
+                if (listaAdmMenu[i].id === id) {
+                    index = i;
+                    break;
+                }
             }
         }
         return index;
